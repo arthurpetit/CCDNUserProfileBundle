@@ -39,8 +39,8 @@ CCDNUser\ProfileBundle\Entity\Profile:
             - Type: { type: string, groups: [signature] }
             - MaxLength: { limit: 255, groups: [signature] }
 
-        avatar:
-            - Type: { type: string, groups: [avatar] }
-            - MaxLength: { limit: 255, groups: [avatar] }
+        #avatar:
+        #    - Type: { type: string, groups: [avatar] }
+        #    - MaxLength: { limit: 255, groups: [avatar] }
         avatarIsRemote:
             - Type: { type: bool, groups: [avatar] }

@@ -17,8 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use CCDNUser\UserBundle\Entity\User;
 
 /**
- * @ORM\Entity(repositoryClass="CCDNUser\ProfileBundle\Repository\ProfileRepository")
- * @ORM\Table(name="CC_User_Profile")
+ * @ORM\MappedSuperclass
  */
 class Profile
 {
@@ -31,7 +30,7 @@ class Profile
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="CCDNUser\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="CCDNUser\UserBundle\Entity\User", cascade={"persist"}, inversedBy="profile")
      * @ORM\JoinColumn(name="fk_user_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $user;

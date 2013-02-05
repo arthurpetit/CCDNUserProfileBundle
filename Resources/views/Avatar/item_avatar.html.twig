@@ -6,25 +6,10 @@
 	{%- set border =  (border is defined) ? 'border:' ~ border ~ 'px solid #ddd;': '' -%}
 	{%- set padding = (padding is defined) ? 'padding:' ~ padding ~ 'px;': '' -%}
 	
-	{%- if user -%}
-		{%- if user.getProfile -%}
-			{%- if user.getProfile.getAvatar -%}
-				{%- if user.getProfile.getAvatarIsRemote -%}
-					{%- set avatar = user.getProfile.getAvatar -%}
-				{%- else -%}
-					{%- set avatar = asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') -%}
-				{%- endif -%}
-			{%- else -%}
-				{%- set avatar = asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') -%}
-			{%- endif -%}
-		{%- else -%}
-			{%- set avatar = asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') -%}
-		{%- endif -%}
-	{%- else -%}
-		{%- set avatar = asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') -%}
-	{%- endif -%}
-
-	<img style="{{- rounded -}}{{- border -}}{{- padding -}}" class="avatar" width="{{- scale_x -}}" height="{{- scale_y -}}" src="{{- avatar -}}" alt="avatar">
-	{#<div style="-webkit-transform: rotate(-45deg);background-color:#a090ff;position:relative;top:-{{- scale_y -}}px;right:{{- scale_x / 2 -}}px">Admin</div>#}
+	{%- if user and user.getProfile and user.getProfile.getAvatar -%}
+		{% thumbnail user.getProfile.getAvatar, 'medium' with {'class': 'avatar img-rounded', 'alt': user.getFullname } %}
+	{% else %}
+		<img  class="avatar" width="{{- scale_x -}}" height="{{- scale_y -}}" src="{{- asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') -}}" alt="avatar">	
+	{% endif %}
 	
 {%- endspaceless -%}

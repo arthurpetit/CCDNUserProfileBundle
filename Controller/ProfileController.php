@@ -13,6 +13,8 @@
 
 namespace CCDNUser\ProfileBundle\Controller;
 
+use Alumneye\UserBundle\Doctrine\UserManager;
+
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -51,7 +53,7 @@ class ProfileController extends ContainerAware
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {	
 
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
 
         if ( ! is_object($user) || ! ($user instanceof UserInterface)) {
@@ -92,7 +94,7 @@ class ProfileController extends ContainerAware
 
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
 
         if ( ! is_object($user) || ! ($user instanceof UserInterface)) {
@@ -129,7 +131,7 @@ class ProfileController extends ContainerAware
 
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
 
         //
@@ -195,7 +197,7 @@ class ProfileController extends ContainerAware
 
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
 
         //
@@ -261,9 +263,8 @@ class ProfileController extends ContainerAware
 
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
-
         //
         // Have we retrieved a valid user object?
         //
@@ -288,7 +289,7 @@ class ProfileController extends ContainerAware
         $profile = $user->getProfile();
 
         $formHandler = $this->container->get('ccdn_user_profile.form.handler.profile_avatar');
-
+		
         $process = $formHandler->process($profile);
 
         if ($process) {
@@ -327,7 +328,7 @@ class ProfileController extends ContainerAware
 
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
 
         //
@@ -393,7 +394,7 @@ class ProfileController extends ContainerAware
 
             $user = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $user = $this->container->get('ccdn_user_profile.repository.profile')->findOneByIdJoinedToUser($userId);
+            $user = $this->container->get('fos_user.user_manager')->findUserBy(array('id'=>$userId));
         }
 
         //
